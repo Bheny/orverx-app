@@ -15,7 +15,7 @@ function ensureFile() {
   if (!fs.existsSync(FILE_PATH)) fs.writeFileSync(FILE_PATH, "[]", "utf-8");
 }
 
-export function saveResponse(answers: Record<string, string>): SurveyResponse {
+export function saveResponse(answers: Record<string, string>): { entry: SurveyResponse; position: number } {
   ensureFile();
   const existing: SurveyResponse[] = JSON.parse(fs.readFileSync(FILE_PATH, "utf-8"));
   const entry: SurveyResponse = {
@@ -25,5 +25,5 @@ export function saveResponse(answers: Record<string, string>): SurveyResponse {
   };
   existing.push(entry);
   fs.writeFileSync(FILE_PATH, JSON.stringify(existing, null, 2), "utf-8");
-  return entry;
+  return { entry, position: existing.length };
 }

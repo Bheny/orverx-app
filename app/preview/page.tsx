@@ -19,7 +19,7 @@ const img = {
     "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=800&h=1000&q=80",
   ],
   projects: [
-    "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?auto=format&fit=crop&w=800&h=600&q=80",
+    "https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?auto=format&fit=crop&w=800&h=600&q=80",
     "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&h=600&q=80",
     "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&h=600&q=80",
   ],
@@ -160,21 +160,20 @@ export default function PreviewPage() {
           priority
           sizes="100vw"
         />
-        {/* Subtle dark gradient overlay at bottom for avatar legibility */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
       </div>
 
       {/* ── Profile header ── */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
-        <div className="relative -mt-14 sm:-mt-16 mb-6">
-          <div className="flex flex-col sm:flex-row sm:items-end gap-4 sm:gap-6">
+      <div className="bg-white border-b border-gray-100">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="relative pb-5">
 
-            {/* Avatar photo */}
+            {/* Avatar – absolutely positioned so only it overlaps the cover */}
             <motion.div
               initial={{ scale: 0.85, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border-4 border-white shadow-lg overflow-hidden flex-shrink-0 bg-rose-100"
+              className="absolute -top-12 sm:-top-14 left-0 w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border-4 border-white shadow-lg overflow-hidden bg-rose-100"
             >
               <Image
                 src={img.avatar}
@@ -185,8 +184,8 @@ export default function PreviewPage() {
               />
             </motion.div>
 
-            {/* Name + actions */}
-            <div className="flex-1 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-1">
+            {/* Name + actions – sit on white background, pushed right of avatar on sm+ */}
+            <div className="pt-16 sm:pt-4 sm:pl-36 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <div>
                 <motion.h1
                   initial={{ opacity: 0, y: 10 }}
@@ -229,13 +228,15 @@ export default function PreviewPage() {
             </div>
           </div>
         </div>
+      </div>
 
-        {/* ── Stats row ── */}
+      {/* ── Stats row + main content ── */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25, duration: 0.45 }}
-          className="flex items-center gap-8 sm:gap-12 py-5 border-y border-gray-100 mb-6"
+          className="flex items-center gap-8 sm:gap-12 py-5 border-b border-gray-100 mb-6"
         >
           <StatCard value={student.stats.projects}     label="Projects" />
           <StatCard value={student.stats.collaborators} label="Collaborators" />

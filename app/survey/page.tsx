@@ -15,6 +15,7 @@ export default function SurveyPage() {
   const [direction, setDirection] = useState<1 | -1>(1);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<Status>("idle");
+  const [position, setPosition] = useState<number>(1);
 
   const question = questions[step];
   const isFirst = step === 0;
@@ -51,6 +52,8 @@ export default function SurveyPage() {
         body: JSON.stringify({ answers }),
       });
       if (!res.ok) throw new Error("Failed");
+      const data = await res.json();
+      setPosition(data.position ?? 1);
       setStatus("done");
     } catch {
       setStatus("error");
@@ -85,7 +88,7 @@ export default function SurveyPage() {
                 animate={{ opacity: 1 }}
                 className="bg-white rounded-2xl sm:rounded-3xl shadow-lg border border-mauve-100 px-4 sm:px-8 py-10 sm:py-12"
               >
-                <ThankYou />
+                <ThankYou position={position} />
               </motion.div>
             ) : (
               <motion.div

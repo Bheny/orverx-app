@@ -7,8 +7,8 @@ export async function POST(req: NextRequest) {
     if (!body || typeof body.answers !== "object") {
       return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
     }
-    const entry = saveResponse(body.answers as Record<string, string>);
-    return NextResponse.json({ ok: true, id: entry.id }, { status: 201 });
+    const { entry, position } = saveResponse(body.answers as Record<string, string>);
+    return NextResponse.json({ ok: true, id: entry.id, position }, { status: 201 });
   } catch (err) {
     console.error("[survey/route]", err);
     return NextResponse.json({ error: "Internal error" }, { status: 500 });
