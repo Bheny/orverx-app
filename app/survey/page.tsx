@@ -88,7 +88,11 @@ export default function SurveyPage() {
                 animate={{ opacity: 1 }}
                 className="bg-white rounded-2xl sm:rounded-3xl shadow-lg border border-mauve-100 px-4 sm:px-8 py-10 sm:py-12"
               >
-                <ThankYou position={position} />
+                <ThankYou
+                  position={position}
+                  initialName={answers["name"] ?? ""}
+                  initialPhone={answers["whatsapp"] ?? ""}
+                />
               </motion.div>
             ) : (
               <motion.div

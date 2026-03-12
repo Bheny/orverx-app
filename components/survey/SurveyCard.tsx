@@ -45,7 +45,7 @@ export default function SurveyCard({
   isLast,
   direction,
 }: Props) {
-  const canProceed = answer.trim().length > 0;
+  const canProceed = question.optional ? true : answer.trim().length > 0;
 
   return (
     <AnimatePresence mode="wait" custom={direction}>
@@ -59,9 +59,13 @@ export default function SurveyCard({
         className="w-full"
       >
         {/* Question text */}
-        <h2 className="font-display text-xl sm:text-2xl font-bold text-gray-900 mb-6 leading-snug">
+        <h2 className="font-display text-xl sm:text-2xl font-bold text-gray-900 mb-1.5 leading-snug">
           {question.text}
         </h2>
+        {question.subtitle && (
+          <p className="text-sm text-gray-400 mb-5">{question.subtitle}</p>
+        )}
+        {!question.subtitle && <div className="mb-6" />}
 
         {/* Answer input */}
         {question.type === "choice" && question.options ? (
@@ -77,6 +81,7 @@ export default function SurveyCard({
             value={answer}
             onChange={onAnswer}
             placeholder={question.placeholder}
+            inputType={question.inputType}
           />
         )}
 

@@ -1,14 +1,34 @@
 export type QuestionType = "choice" | "text";
+export type InputType = "text" | "name" | "tel";
 
 export interface Question {
   id: string;
   type: QuestionType;
+  inputType?: InputType;
   text: string;
+  subtitle?: string;
   options?: string[];
   placeholder?: string;
+  optional?: boolean;
 }
 
 export const questions: Question[] = [
+  {
+    id: "name",
+    type: "text",
+    inputType: "name",
+    text: "First, what's your name?",
+    placeholder: "e.g. Sophia",
+  },
+  {
+    id: "whatsapp",
+    type: "text",
+    inputType: "tel",
+    text: "What's your WhatsApp number?",
+    subtitle: "So you can share Orvex with friends in one tap.",
+    placeholder: "e.g. +44 7700 900123",
+    optional: true,
+  },
   {
     id: "study",
     type: "choice",

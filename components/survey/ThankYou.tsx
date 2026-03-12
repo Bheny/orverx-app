@@ -13,9 +13,17 @@ function buildShareText(position: number, name: string) {
   return `${intro}\n\nIt's a platform for fashion students to collaborate on shoots, lookbooks & grad projects. We need ${GOAL} students before we start building — I'm #${position}. Join us:`;
 }
 
-export default function ThankYou({ position }: { position: number }) {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+export default function ThankYou({
+  position,
+  initialName = "",
+  initialPhone = "",
+}: {
+  position: number;
+  initialName?: string;
+  initialPhone?: string;
+}) {
+  const [name, setName] = useState(initialName);
+  const [phone, setPhone] = useState(initialPhone);
   const [copied, setCopied] = useState(false);
 
   const pct = Math.min((position / GOAL) * 100, 100);
